@@ -1,0 +1,45 @@
+# Redirect www to non-www (commented out to prevent build issues)
+# https://www.boracay.house/* https://boracay.house/:splat 301!
+
+# Redirect old indexed URLs to homepage
+/privacy-policy / 301
+
+# Book Direct page redirects
+/book-direct /direct 301
+/book-direct-boracay /direct 301
+/save-fees /direct 301
+
+/post/guide-to-buying-property-in-boracay-essential-steps-to-secure-your-investment / 301
+/booking-engine / 301
+/blog / 301
+/kokomofrosaleorforrent / 301
+/pukaforrentorforsaleinboracay / 301
+/lotforsaleindiniwid / 301
+/references / 301
+/rent-to-own / 301
+/home / 301
+/post/what-to-do-in-tablas-island-romblon-a-practical-guide-for-curious-travelers / 301
+/studiosforsaleinboracay / 301
+/ilawilawvillaboracayforsale / 301
+/ilaganforsaleorforrent / 301
+/tigbaoforsaleorrent / 301
+/post/residency-and-visa-renewal-in-the-philippines / 301
+/post/philippines-sims-staying-connected-in-the-philippines-mobile-networks-and-internet-acces / 301
+/post/new-summer-promo-travel-to-boracay-on-a-budget / 301
+/monacosuitesboracayforsale / 301
+/boracayvillaforsalerealestate / 301
+/news-about-boracay / 301
+/tawibungalowforsaleorrent / 301
+
+# Add missing redirects for Soft 404 pages
+/tigbao-studio-peaceful-island-style-studio-for-sale-near-diniwid-beach-boracay / 301
+/2-bedroom-villa-in-diniwid / 301
+/resort-for-sale-or-rent-in-boracay / 301
+
+# Route social media crawlers for specific dynamic content through OG image generator function
+# This rule uses User-Agent to target known crawlers for paths that represent dynamic content.
+/blog/:category/:slug /.netlify/functions/og-image-generator 200 User-Agent=facebookexternalhit,WhatsApp,Twitterbot,LinkedInBot,TelegramBot,Discordbot,Slackbot,Googlebot,bingbot,Applebot,prerender
+/:slug /.netlify/functions/og-image-generator 200 User-Agent=facebookexternalhit,WhatsApp,Twitterbot,LinkedInBot,TelegramBot,Discordbot,Slackbot,Googlebot,bingbot,Applebot,prerender
+
+# SPA Fallback: For any path not explicitly redirected above, serve index.html
+/* /index.html 200
