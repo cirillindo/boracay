@@ -1,0 +1,42 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "max-age=0, no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+
+[functions]
+  og-image-generator.timeout = 60
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "max-age=0, no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+
+# Route social media crawlers for specific dynamic content through OG image generator function
+# This rule uses User-Agent to target known crawlers for paths that represent dynamic content.
+# IMPORTANT: Googlebot, bingbot, Applebot, and prerender have been removed from this list
+# to allow them to crawl the full SPA content.
+[[redirects]]
+  from = "/blog/:category/:slug"
+  to = "/.netlify/functions/og-image-generator"
+  status = 200
+  force = true
+  conditions = {User-Agent = ["facebookexternalhit", "WhatsApp", "Twitterbot", "LinkedInBot", "TelegramBot", "Discordbot", "Slackbot"]}
+
+[[redirects]]
+  from = "/:slug"
+  to = "/.netlify/functions/og-image-generator"
+  status = 200
+  force = true
+  conditions = {User-Agent = ["facebookexternalhit", "WhatsApp", "Twitterbot", "LinkedInBot", "TelegramBot", "Discordbot", "Slackbot"]}
+
+# SPA Fallback: For any path not explicitly redirected above, serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
